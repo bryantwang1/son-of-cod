@@ -23,5 +23,29 @@ namespace Newsletter.Tests.ControllerTests
 
             Assert.IsType<ViewResult>(result);
         }
+
+        [Fact]
+        public void Get_ViewResult_Registered_Test()
+        {
+            var mockDb = new Mock<WebsiteDbContext>();
+            HomeController controller = new HomeController(mockDb.Object);
+
+            var result = controller.Registered();
+
+            Assert.IsType<ViewResult>(result);
+        }
+
+
+        //[Fact]
+        //public void Get_ViewResult_Newsletter_Test()
+        //{
+        //    var mockDb = new Mock<WebsiteDbContext>();
+        //    mockDb.Setup(db => db.NewsletterMembers.ToList()).Returns(new List<NewsletterMember> { new NewsletterMember() });
+        //    HomeController controller = new HomeController(mockDb.Object);
+
+        //    var result = controller.Newsletter();
+
+        //    Assert.IsType<ViewResult>(result);
+        //}
     }
 }
