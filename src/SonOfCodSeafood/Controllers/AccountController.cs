@@ -59,7 +59,7 @@ namespace SonOfCodSeafood.Controllers
             }
             else
             {
-                ViewBag.failMessage = "Your email or password was wrong or is not registered."
+                ViewBag.failMessage = "Your email or password was wrong or is not registered.";
                 return View();
             }
         }

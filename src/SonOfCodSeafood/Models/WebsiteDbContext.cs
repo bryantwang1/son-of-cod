@@ -9,5 +9,10 @@ namespace SonOfCodSeafood.Models
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+        public DbSet<NewsletterMember> NewsletterMembers { get; set; }
     }
 }
