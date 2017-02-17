@@ -7,9 +7,9 @@
 @if (User.IsInRole("Admin"))
 {
     <h2>Mailing List</h2>
-    foreach(var member in ViewBag.Members)
+    @foreach(var member in ViewBag.Members)
     {
-        <p>member.Email</p>
+        <p>@member.FirstName @member.LastName, @member.Email, Birthday: @member.Birthday.ToShortDateString() <span> | </span> <a onclick="return confirm('Are you sure you want to delete this member?')" asp-action="DeleteMember" asp-route-id="@member.NewsletterMemberId">Delete</a></p>
     }
 }
 else
@@ -36,6 +36,7 @@ else
         <div class="form-group">
             <label asp-for="@Model.Birthday"></label>
             <input asp-for="@Model.Birthday" placeholder="mm/dd/yyyy" />
+            <p>We'll send you a special coupon on your birthday!</p>
         </div>
 
 

@@ -43,5 +43,15 @@ namespace SonOfCodSeafood.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteMember(int id)
+        {
+            var member = _db.NewsletterMembers.Where(m => m.NewsletterMemberId == id).FirstOrDefault();
+            _db.Remove(member);
+            _db.SaveChanges();
+
+            return RedirectToAction("Newsletter");
+        }
     }
 }
