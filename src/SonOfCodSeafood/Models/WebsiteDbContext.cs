@@ -9,6 +9,12 @@ namespace SonOfCodSeafood.Models
         {
 
         }
+
+        public WebsiteDbContext()
+        {
+
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
