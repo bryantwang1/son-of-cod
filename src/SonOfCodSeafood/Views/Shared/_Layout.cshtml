@@ -4,6 +4,7 @@
 
 <html>
 <head>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
@@ -26,7 +27,7 @@
             <p>@Html.ActionLink("Log in", "Login", "Account")</p>
         }
     </section>
-    <div>
+    <div class="container">
         @RenderBody()
     </div>
 </body>
