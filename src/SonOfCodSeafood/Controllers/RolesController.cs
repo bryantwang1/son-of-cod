@@ -59,9 +59,9 @@ namespace SonOfCodSeafood.Controllers
             }
         }
 
-        public IActionResult Delete(string RoleName)
+        public IActionResult Delete(string roleName)
         {
-            var thisRole = _db.Roles.Where(r => r.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            var thisRole = _db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             _db.Roles.Remove(thisRole);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -95,9 +95,13 @@ namespace SonOfCodSeafood.Controllers
 
         public IActionResult Manage()
         {
-            IEnumerable<SelectListItem> list = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr =>
+            var roleList = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr =>
                 new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
-            ViewBag.Roles = list;
+            ViewBag.Roles = roleList;
+
+            var userList = _db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>
+                new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+            ViewBag.Users = userList;
             return View();
         }
 
@@ -113,22 +117,29 @@ namespace SonOfCodSeafood.Controllers
             var list = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr =>
                 new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = list;
+
+            var userList = _db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>
+                new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+            ViewBag.Users = userList;
             return View("Manage");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> GetRoles(string UserName)
+        public async Task<IActionResult> GetRoles(string userName)
         {
-            if (!string.IsNullOrWhiteSpace(UserName))
+            if (!string.IsNullOrWhiteSpace(userName))
             {
-                WebsiteUser user = _db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                WebsiteUser user = _db.Users.Where(u => u.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
 
                 ViewBag.RolesForThisUser = await _userManager.GetRolesAsync(user);
 
                 var list = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
-
                 ViewBag.Roles = list;
+
+                var userList = _db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>
+                new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+                ViewBag.Users = userList;
 
             }
             return View("Manage");
@@ -136,23 +147,36 @@ namespace SonOfCodSeafood.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteRoleForUser(string UserName, string RoleName)
+        public async Task<IActionResult> DeleteRoleForUser(string userName, string roleName)
         {
-            WebsiteUser user = _db.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-            bool inRole = await _userManager.IsInRoleAsync(user, RoleName);
+            WebsiteUser user = _db.Users.Where(u => u.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            bool inRole = await _userManager.IsInRoleAsync(user, roleName);
             if (inRole)
             {
-                await _userManager.RemoveFromRoleAsync(user, RoleName);
-                ViewBag.ResultMessage = "Role removed from this user successfully!";
+                int adminCount = 0;
+                if(roleName == "Admin")
+                {
+                    var adminRole = await _db.Roles.Where(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefaultAsync();
+                    adminCount = await _db.UserRoles.Where(ur => ur.RoleId == adminRole.Id).CountAsync();
+                }
+
+                if(adminCount > 1)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, roleName);
+                    ViewBag.ResultMessage = "Role removed from this user successfully!";
+                }
             }
             else
             {
-                ViewBag.ResultMessage = "This user doesn't belong to selected role.";
+                ViewBag.ResultMessage = "This user doesn't belong to the selected role.";
             }
 
             var list = _db.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
-
             ViewBag.Roles = list;
+
+            var userList = _db.Users.OrderBy(u => u.UserName).ToList().Select(uu =>
+                new SelectListItem { Value = uu.UserName.ToString(), Text = uu.UserName }).ToList();
+            ViewBag.Users = userList;
 
             return View("Manage");
         }
