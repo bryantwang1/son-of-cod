@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Newsletter";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SonOfCodSeafood.Models.NewsletterMember
+
+@if (User.IsInRole("Admin"))
+{
+    <h2>Registered Members</h2>
+    foreach(var member in ViewBag.Members)
+    {
+        <p>member.Email</p>
+    }
+}
+else
+{
+    <h2>Register for our newsletter!</h2>
+    <hr />
+    <p class="failure">@ViewBag.failMessage</p>
+    <form asp-action="Newsletter">
+        <div class="form-group">
+            <label asp-for="@Model.FirstName"></label>
+            <input asp-for="@Model.FirstName" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.LastName"></label>
+            <input asp-for="@Model.LastName" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.Email"></label>
+            <input asp-for="@Model.Email" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.Birthday"></label>
+            <input asp-for="@Model.Birthday" placeholder="mm/dd/yyyy" />
+        </div>
+
+
+        <input type="submit" value="Register" class="btn btn-default" />
+    </form>
+}

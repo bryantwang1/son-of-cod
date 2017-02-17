@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNet.Authorization;
+using SonOfCodSeafood.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,8 +12,34 @@ namespace SonOfCodSeafood.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: /<controller>/
+        private readonly WebsiteDbContext _db;
+        public HomeController(WebsiteDbContext db)
+        {
+            _db = db;
+        }
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Newsletter()
+        {
+            if(User.IsInRole("Admin"))
+            {
+                ViewBag.Members = _db.NewsletterMembers.ToList();
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Newsletter(NewsletterMember member)
+        {
+            _db.NewsletterMembers.Add(member);
+            _db.SaveChanges();
+            return RedirectToAction("Registered");
+        }
+
+        public IActionResult Registered()
         {
             return View();
         }
