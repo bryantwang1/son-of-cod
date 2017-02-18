@@ -12,14 +12,17 @@
     margin-top: 2vh;
 }
 
-.container .btn {
-    text-align: center;
-}
-
 .centerer {
     display: flex;
     width: 100vw;
     align-items: center;
+    flex-direction: column;
+}
+
+.container-centerer {
+    display: flex;
+    align-items: center;
+    width: 100%;
     flex-direction: column;
 }
 
@@ -33,4 +36,9 @@
 
 .failure {
     color: red;
+}
+
+.divider-line {
+    border: 1px solid black;
+    width: 100vw;
 }
