@@ -30,3 +30,7 @@
 .light-gray {
     background-color: lightgray;
 }
+
+.failure {
+    color: red;
+}

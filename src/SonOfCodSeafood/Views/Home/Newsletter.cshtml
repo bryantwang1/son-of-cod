@@ -49,24 +49,28 @@ else
         <p class="failure">@ViewBag.failMessage</p>
         <form asp-action="Newsletter">
             <div class="form-group">
-                <label asp-for="@Model.FirstName"></label>
-                <input asp-for="@Model.FirstName" />
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" />
+                <div data-valmsg-for="FirstName" data-valmsg-replace="true"></div>
             </div>
 
             <div class="form-group">
-                <label asp-for="@Model.LastName"></label>
-                <input asp-for="@Model.LastName" />
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" />
+                <div data-valmsg-for="LastName" data-valmsg-replace="true"></div>
             </div>
 
             <div class="form-group">
-                <label asp-for="@Model.Email"></label>
-                <input asp-for="@Model.Email" />
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <div data-valmsg-for="Email" data-valmsg-replace="true"></div>
             </div>
 
             <div class="form-group">
-                <label asp-for="@Model.Birthday"></label>
-                <input asp-for="@Model.Birthday" placeholder="mm/dd/yyyy" />
+                <label asp-for="Birthday"></label>
+                <input asp-for="Birthday" placeholder="mm/dd/yyyy" />
                 <p>We'll send you a special coupon on your birthday!</p>
+                <div data-valmsg-for="Birthday" data-valmsg-replace="true"></div>
             </div>
 
 
