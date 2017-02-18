@@ -15,6 +15,7 @@ _These instructions include the use of MS Visual Studio 2015_
 5. Run the database script (sql file) if you want the example data rather than having to add your own.
 6. Open the SonOfCodSeafood.sln in Visual Studio.
 7. Start the local server by hitting the play button.
+8. The default admin account if you use the script is moocow@gmail.com, pass: Moocow@123.
 
 ## Technologies Used
 
