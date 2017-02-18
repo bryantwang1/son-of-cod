@@ -1,0 +1,32 @@
+﻿body {
+}
+
+.carousel {
+    height: 400px;
+    overflow: hidden;
+    max-width: 800px;
+}
+
+.container h1 {
+    text-align: center;
+    margin-top: 2vh;
+}
+
+.container .btn {
+    text-align: center;
+}
+
+.centerer {
+    display: flex;
+    width: 100vw;
+    align-items: center;
+    flex-direction: column;
+}
+
+.serif-font {
+    font-family: serif;
+}
+
+.light-gray {
+    background-color: lightgray;
+}
