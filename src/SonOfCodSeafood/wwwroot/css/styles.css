@@ -30,7 +30,7 @@
     font-family: serif;
 }
 
-.light-gray {
+.bg-light-gray {
     background-color: lightgray;
 }
 
@@ -41,4 +41,16 @@
 .divider-line {
     border: 1px solid black;
     width: 100vw;
+}
+
+.container {
+    overflow: hidden;
+}
+
+.blue {
+    color: darkblue;
+}
+
+.custom-ul {
+    margin-right: 0 !important;
 }
