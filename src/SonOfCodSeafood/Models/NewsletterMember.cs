@@ -17,7 +17,6 @@ namespace SonOfCodSeafood.Models
         [StringLength(200, MinimumLength = 1)]
         public string Email { get; set; }
         [Required]
-        [StringLength(20, MinimumLength = 8)]
         public DateTime Birthday { get; set; }
 
         public NewsletterMember()
